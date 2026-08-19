@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_list/bloc/todo_bloc.dart';
 import 'package:todo_list/cubit/todo_cubit.dart';
 
 class TodoList extends StatelessWidget {
@@ -7,11 +8,12 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todoCubit = BlocProvider.of<TodoCubit>(context);
+    // final todoCubit = BlocProvider.of<TodoCubit>(context);
+    final todoBloc = BlocProvider.of<TodoBloc>(context);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Todo List')),
-      body: BlocBuilder<TodoCubit, List<String>>(
+      body: BlocBuilder<TodoBloc, List<String>>(
         builder: (context, todoList) {
           return Column(
             children: [
@@ -41,7 +43,8 @@ class TodoList extends StatelessWidget {
           ),
           FloatingActionButton(
             onPressed: () {
-              todoCubit.todoRemove();
+              // todoCubit.todoRemove();
+              todoBloc.add(TodoEventRemove());
             },
             tooltip: 'Remove Todo',
             child: const Icon(Icons.remove_circle_outline),
